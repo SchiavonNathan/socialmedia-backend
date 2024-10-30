@@ -1,0 +1,24 @@
+services:
+  database:
+    image: mysql:8
+    container_name: database
+    environment:
+      MYSQL_ROOT_PASSWORD: root # Senha do usuário root
+      MYSQL_DATABASE: blog # Nome do banco de dados inicial
+      MYSQL_USER: unicesumar # Nome do usuário do banco de dados
+      MYSQL_PASSWORD: unicesumar # Senha do usuário do banco de dados
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    container_name: adminer
+    environment:
+      ADMINER_DEFAULT_SERVER: database
+    ports:
+      - "8080:8080"
+
+volumes:
+  mysql_data:
