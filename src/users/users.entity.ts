@@ -12,7 +12,7 @@ export class User {
     email: string
 
     @Column()
-    role: string
+    password: string
 
     @Column({ default: true })
     isActive: boolean

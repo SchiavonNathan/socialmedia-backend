@@ -9,7 +9,7 @@ export class UserDTO {
     email: string
 
     @IsNotEmpty()
-    role: string
+    password: string
 
     @IsNotEmpty()
     @IsBoolean()

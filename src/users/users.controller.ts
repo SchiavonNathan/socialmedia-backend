@@ -36,7 +36,7 @@ export class UsersController {
 
         user.name = userDto.name;
         user.email = userDto.email;
-        user.role = userDto.role;
+        user.password = userDto.password;
         user.isActive = userDto.isActive;
 
         this.userRepository.save(user);
