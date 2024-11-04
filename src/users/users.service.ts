@@ -10,7 +10,7 @@ export class UsersService {
       userId: 1,
       name: 'john',
       email: '123',
-      pass: 'changeme',
+      password: 'changeme',
     },
   ];
 

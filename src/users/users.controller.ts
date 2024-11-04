@@ -30,6 +30,7 @@ export class UsersController {
         return user;
     }
 
+    @Public()
     @Post()
     createUser(@Body() userDto: UserDTO) {
         const user = this.userRepository.create();
