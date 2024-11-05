@@ -27,20 +27,6 @@ export class AuthService {
     };
   }
 
-  //Metodos de autenticacao facebook
-  async validateUser(profile: any): Promise<User> {
-    // Procura o usuário pelo Facebook ID ou cria um novo usuário
-    const user = await this.usersService.findOrCreate(profile);
-    return user;
-  }
-
-  async login(user: User) {
-    const payload = { username: user.name, sub: user.id };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
-  }
-
    // Função para validar o token do Facebook e autenticar o usuário
    async validateFacebookUser(accessToken: string): Promise<any> {
     // 1. Verificar se o token do Facebook é válido, fazendo uma requisição para a API Graph do Facebook
