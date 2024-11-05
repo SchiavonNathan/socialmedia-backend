@@ -1,4 +1,3 @@
-
 import {
   Body,
   Controller,
@@ -12,6 +11,7 @@ import {
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { Public } from './constants';
+import { FacebookAuthGuard } from './facebook-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -29,5 +29,20 @@ export class AuthController {
   @Get('profile')
   getProfile(@Request() req) {
     return req.user;
+  }
+
+   // Rota de login via Facebook
+  @Get('facebook')
+  @UseGuards(FacebookAuthGuard)
+  async facebookLogin() {
+    // O Passport redireciona o usuário para o Facebook
+  }
+
+  @Public()
+  @Post('facebook')
+  async loginWithFacebook(@Body() body: { accessToken: string }) {
+    const user = await this.authService.validateFacebookUser(body.accessToken);
+    return { access_token: user.access_token };  // Retorne o token JWT para o frontend
+
   }
 }
