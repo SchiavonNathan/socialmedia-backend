@@ -9,14 +9,8 @@ export class FacebookStrategy extends PassportStrategy(Strategy, 'facebook') {
     super({
       clientID: '1963945814110125',
       clientSecret: '424d6e2a90cc2ea88a1d82f7e2b49bcc',
-      callbackURL: 'http://localhost:3000/auth/facebook/callback',
+      callbackURL: 'google.com',
       scope: ['email'],
     });
-  }
-
-  async validate(accessToken: string, refreshToken: string, profile: any) {
-    // Chama a função findOrCreate do UsersService
-    const user = await this.authService.validateUser(profile);
-    return user; // Retorna o usuário para ser usado pelo NestJS
   }
 }

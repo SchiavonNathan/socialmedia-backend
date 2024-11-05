@@ -14,8 +14,7 @@ export class UsersService {
     return this.usersRepository.findOne({ where: { name } });
   }
 
-  
-  // Função para encontrar ou criar o usuário Facebook
+   // Função para encontrar ou criar o usuário Facebook
   async findOrCreate(profile: any): Promise<User> {
     let user = await this.usersRepository.findOne({
       where: { facebookId: profile.id },

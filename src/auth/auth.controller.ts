@@ -31,13 +31,6 @@ export class AuthController {
     return req.user;
   }
 
-   // Rota de login via Facebook
-  @Get('facebook')
-  @UseGuards(FacebookAuthGuard)
-  async facebookLogin() {
-    // O Passport redireciona o usuário para o Facebook
-  }
-
   @Public()
   @Post('facebook')
   async loginWithFacebook(@Body() body: { accessToken: string }) {

@@ -48,17 +48,12 @@ export class AuthService {
     try {
       const response = await axios.get(url);
 
-      // 2. Obter dados do usuário do Facebook
       const { id, name, email, picture } = response.data;
-
-      // 3. Verificar se o usuário já existe na base de dados
       let user = await this.usersService.findOrCreate(id);
-
-      // 4. Gerar um token JWT para o usuário
+      //Gera Jwt
       const payload = { userId: user.id, name: user.name, email: user.email };
       const accessTokenJWT = this.jwtService.sign(payload);
-
-      // 5. Retornar o token JWT e os dados do usuário
+      //Retornar o token JWT
       return {
         access_token: accessTokenJWT,
         user,
