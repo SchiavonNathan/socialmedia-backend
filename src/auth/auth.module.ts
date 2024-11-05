@@ -7,7 +7,6 @@ import { AuthController } from './auth.controller';
 import { jwtConstants } from './constants';
 import { AuthGuard } from './auth.guard';
 import { APP_GUARD } from '@nestjs/core';
-import { UsersService } from '../users/users.service';
 import { PassportModule } from '@nestjs/passport';
 import { FacebookStrategy } from './facebook.strategy';
 
