@@ -1,8 +1,10 @@
-import { IsBoolean, IsEmail, IsNotEmpty, isNotEmpty } from "class-validator"
+import { IsBoolean, IsDate, IsEmail, IsNotEmpty, isNotEmpty } from "class-validator"
 
 export class UserDTO {
     @IsNotEmpty()
     name: string
+
+    lastName: string
 
     @IsNotEmpty()
     @IsEmail()

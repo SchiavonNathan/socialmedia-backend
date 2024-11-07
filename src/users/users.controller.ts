@@ -1,15 +1,19 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Req, UseGuards } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { User } from "./users.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { UserDTO } from "./DTO/users.dto";
 import { Public } from "src/auth/constants";
+import { AuthGuard } from '@nestjs/passport';
+import { UsersService } from "./users.service";
 
 
 @Controller("users")
 export class UsersController {
 
     constructor(
+        private readonly usersService: UsersService,
+
         @InjectRepository(User)
         private userRepository: Repository<User>
     ) { }
@@ -54,4 +58,20 @@ export class UsersController {
 
         this.userRepository.delete({ id: user.id });
     }
+
+
+    //GOOGLE ROTAS
+    @Public()
+    @Get('google')
+    @UseGuards(AuthGuard('google'))
+    async googleAuth(@Req() req) {}
+
+
+    @Public()
+    @Get('googleredirect')
+    @UseGuards(AuthGuard('google'))
+    googleAuthRedirect(@Req() req) {
+    return this.usersService.googleLogin(req)
+  }
+
 }

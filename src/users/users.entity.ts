@@ -9,6 +9,12 @@ export class User {
     name: string
 
     @Column()
+    lastName: string
+
+    @Column()
+    picture: string
+
+    @Column()
     email: string
 
     @Column()
