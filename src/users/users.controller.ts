@@ -61,6 +61,7 @@ export class UsersController {
 
 
     //GOOGLE ROTAS
+    
     @Public()
     @Get('google')
     @UseGuards(AuthGuard('google'))
@@ -68,7 +69,7 @@ export class UsersController {
 
 
     @Public()
-    @Get('googleredirect')
+    @Get('redirect')
     @UseGuards(AuthGuard('google'))
     googleAuthRedirect(@Req() req) {
     return this.usersService.googleLogin(req)
