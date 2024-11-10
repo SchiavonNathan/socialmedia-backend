@@ -20,6 +20,7 @@ export class UsersController {
         return this.userRepository.find();
     }
 
+    @Public()
     @Get(":id")
     async getUserById(@Param("id") id: number) {
         const user = await this.userRepository.findOneBy({ id });
