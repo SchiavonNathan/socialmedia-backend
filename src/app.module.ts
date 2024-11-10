@@ -7,6 +7,8 @@ import { User } from './users/users.entity';
 import { AuthModule } from './auth/auth.module';
 import { GoogleStrategy } from './google.strategy'
 import { ConfigModule } from '@nestjs/config';
+import { Postagem } from './postagens/postagens.entity';
+import { PostagensModule } from './postagens/postagens.module';
 
 @Module({
   imports: [
@@ -20,10 +22,11 @@ import { ConfigModule } from '@nestjs/config';
       username: "unicesumar",
       password: "unicesumar",
       database: "blog",
-      entities: [User],
+      entities: [User, Postagem],
       synchronize: true
     }),
     UsersModule,
+    PostagensModule,
     AuthModule
   ],
   controllers: [AppController],
