@@ -12,6 +12,7 @@ import { PostagensModule } from './postagens/postagens.module';
 
 @Module({
   imports: [
+    TypeOrmModule.forFeature([Postagem, User]),
     ConfigModule.forRoot({
     isGlobal: true,
     }),
