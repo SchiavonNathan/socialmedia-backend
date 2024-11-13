@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Req, Res } from "@nestjs/common";
 import { Repository } from "typeorm";
 import { User } from "./users.entity";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -55,4 +55,32 @@ export class UsersController {
 
         this.userRepository.delete({ id: user.id });
     }
+
+    @Public()
+    @Post("googlelogin")
+    async loginGoogle(@Req() req, @Res() res) {
+
+        const { email, given_name, family_name, picture } = req.body;
+        
+        const response = await this.userRepository.find({where: { email }})
+    
+        if (response.length === 0){
+        const user = await this.userRepository.create();
+    
+          const fullName = `${given_name} ${family_name}`;
+    
+          user.name = fullName
+          user.email = email
+          user.fotoPerfil = picture
+    
+        await this.userRepository.save(user)
+        
+        }
+        
+        const valida = await this.userRepository.find({where: { email }})
+        
+        return res.json(valida);
+      }
+
+
 }

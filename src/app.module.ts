@@ -5,7 +5,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { User } from './users/users.entity';
 import { AuthModule } from './auth/auth.module';
-import { GoogleStrategy } from './google.strategy'
 import { ConfigModule } from '@nestjs/config';
 import { Postagem } from './postagens/postagens.entity';
 import { PostagensModule } from './postagens/postagens.module';
@@ -30,6 +29,6 @@ import { PostagensModule } from './postagens/postagens.module';
     AuthModule
   ],
   controllers: [AppController],
-  providers: [AppService, GoogleStrategy],
+  providers: [AppService],
 })
 export class AppModule { }
