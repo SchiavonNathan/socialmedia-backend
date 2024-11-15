@@ -16,6 +16,9 @@ export class Postagem {
     @Column("text")
     conteudo: string;
 
+    @Column()
+    foto: string;
+
     @Column({ length: 255, nullable: true })
     tags: string;
 
