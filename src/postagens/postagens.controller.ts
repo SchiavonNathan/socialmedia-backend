@@ -32,6 +32,16 @@ export class PostagensController {
     }
 
     @Public()
+    @Get("/search/:titulo")
+    async getPostagemByTitulo(@Param("titulo") titulo: string) {
+        const postagem = await this.postagemRepository.find({ where:{ titulo: titulo },  relations: ["usuario"]});
+        if (!postagem) {
+            throw new NotFoundException("Postagem não encontrada");
+        }
+        return postagem;
+    }
+
+    @Public()
     @Post()
     async createPostagem(@Body() postagemDto: PostagemDTO) {
         const usuario = await this.userRepository.findOneBy({ id: postagemDto.usuarioId });
