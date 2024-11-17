@@ -5,6 +5,7 @@ import { Postagem } from "src/postagens/postagens.entity";
 export class User {
     @PrimaryGeneratedColumn()
     id: number;
+    
 
     @Column({ length: 100 })
     name: string;

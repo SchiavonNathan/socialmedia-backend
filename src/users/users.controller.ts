@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Req, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post, Req, Res,Put} from "@nestjs/common";
 import { Repository } from "typeorm";
 import { User } from "./users.entity";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -83,4 +83,23 @@ export class UsersController {
       }
 
 
+      //atualizar o perfil do Usuário
+      @Public()
+      @Put(":id")
+      async updateUser(@Param("id") id: number, @Body() updates: Partial<User>) {
+        const user = await this.userRepository.findOneBy({ id });
+        if (!user) {
+          throw new NotFoundException("Usuário não encontrado");
+        }
+    
+        if ("name" in updates) user.name = updates.name;
+        if ("biografia" in updates) user.biografia = updates.biografia;
+        if ("fotoPerfil" in updates) user.fotoPerfil = updates.fotoPerfil;
+    
+        await this.userRepository.save(user);
+        return user;
+      }
 }
+
+
+
