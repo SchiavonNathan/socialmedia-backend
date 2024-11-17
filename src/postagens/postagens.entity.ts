@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn, ManyToMany, JoinTable } from "typeorm";
 import { User } from "src/users/users.entity";
 
 @Entity("Postagens") // Nome da tabela conforme o SQL
@@ -31,4 +31,15 @@ export class Postagem {
         onUpdate: "CURRENT_TIMESTAMP"
     })
     data_atualizacao: Date;
+
+    @Column({type: "int", default: 0})
+    likes: number;
+
+    @ManyToMany(() => User, {cascade: true})
+    @JoinTable({
+        name: "postagem_likes",
+        joinColumn: {name: "postagem_id", referencedColumnName: "id"},
+        inverseJoinColumn: {name: "usuario_id", referencedColumnName: "id"}
+    })
+    curtidoPor: User[];
 }

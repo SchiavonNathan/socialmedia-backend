@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany, CreateDateColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, ManyToMany } from "typeorm";
 import { Postagem } from "src/postagens/postagens.entity";
 
 @Entity("Usuarios")
@@ -29,4 +29,7 @@ export class User {
 
     @OneToMany(() => Postagem, (postagem) => postagem.usuario, { cascade: true })
     postagens: Postagem[];
+
+    @ManyToMany(() => Postagem, (postagem) => postagem.curtidoPor)
+    curtindoPostagens: Postagem[];
 }
