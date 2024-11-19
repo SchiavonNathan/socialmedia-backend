@@ -23,6 +23,20 @@ export class ComentariosController {
     getComentariosList(){
         return this.comentarioRepository.find({ relations: ["usuario", "postagem"] });
     }
+    @Public()
+    @Get(":id")
+    async getComentarioById(@Param("id") id: number) {
+        const comentario = await this.postagemRepository.findOne({
+            where: { id },
+            relations: ["usuario", "comentario"]
+        });
+
+        if (!comentario) {
+            throw new NotFoundException("Comentário não encontrado");
+        }
+
+        return comentario;
+    }
 
     @Public()
     @Post()
