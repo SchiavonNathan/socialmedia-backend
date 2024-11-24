@@ -1,7 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, JoinColumn } from "typeorm";
 import { User } from "src/users/users.entity";
+import { Comentario } from "src/comentarios/comentarios.entity";
 
-@Entity("Postagens") // Nome da tabela conforme o SQL
+@Entity("Postagens") 
 export class Postagem {
     @PrimaryGeneratedColumn()
     id: number;
@@ -34,4 +35,6 @@ export class Postagem {
 
     @Column({ nullable: true })
     slug: string; //armazena slug
+    @OneToMany(() => Comentario, (comentario) => comentario.postagem)
+    comentarios: Comentario[]; // Relacionamento com os Comentarios
 }

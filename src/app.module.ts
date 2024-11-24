@@ -8,6 +8,8 @@ import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
 import { Postagem } from './postagens/postagens.entity';
 import { PostagensModule } from './postagens/postagens.module';
+import { ComentariosModule } from './comentarios/comentarios.module';
+import { Comentario } from "src/comentarios/comentarios.entity";
 
 @Module({
   imports: [
@@ -21,12 +23,13 @@ import { PostagensModule } from './postagens/postagens.module';
       username: "unicesumar",
       password: "unicesumar",
       database: "blog",
-      entities: [User, Postagem],
+      entities: [User, Postagem, Comentario],
       synchronize: true
     }),
     UsersModule,
     PostagensModule,
-    AuthModule
+    AuthModule,
+    ComentariosModule
   ],
   controllers: [AppController],
   providers: [AppService],
