@@ -5,6 +5,8 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { PostagemDTO } from "./DTO/postagens.dto";
 import { Public } from "src/auth/constants";
 import { User } from "src/users/users.entity";
+import { Like } from "typeorm";
+
 
 @Controller("postagens")
 export class PostagensController {
@@ -34,7 +36,7 @@ export class PostagensController {
     @Public()
     @Get("/search/:titulo")
     async getPostagemByTitulo(@Param("titulo") titulo: string) {
-        const postagem = await this.postagemRepository.find({ where:{ titulo: titulo },  relations: ["usuario"]});
+        const postagem = await this.postagemRepository.find({ where: { titulo: Like(`%${titulo}%`) },  relations: ["usuario"]});
         if (!postagem) {
             throw new NotFoundException("Postagem não encontrada");
         }

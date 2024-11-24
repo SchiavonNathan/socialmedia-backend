@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany, CreateDateColumn } from "typeorm";
 import { Postagem } from "src/postagens/postagens.entity";
+import { Comentario } from "src/comentarios/comentarios.entity";
 
 @Entity("Usuarios")
 export class User {
@@ -27,12 +28,9 @@ export class User {
     @CreateDateColumn({ type: "timestamp" })
     dataCriacao: Date;
 
-    @Column({ length: 255, nullable: true })
-    googleId: string;
-
-    @Column({ length: 255, nullable: true })
-    facebookId: string;
-
     @OneToMany(() => Postagem, (postagem) => postagem.usuario, { cascade: true })
     postagens: Postagem[];
+
+    @OneToMany(() => Comentario, (comentario) => comentario.usuario)
+    comentarios: Comentario[]; 
 }
