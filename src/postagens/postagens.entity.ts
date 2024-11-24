@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, JoinColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, JoinColumn, ManyToMany, JoinTable } from "typeorm";
 import { User } from "src/users/users.entity";
 import { Comentario } from "src/comentarios/comentarios.entity";
 
@@ -33,8 +33,21 @@ export class Postagem {
     })
     data_atualizacao: Date;
 
+
+    @Column({type: "int", default: 0})
+    likes: number;
+
+    @ManyToMany(() => User, {cascade: true})
+    @JoinTable({
+        name: "postagem_likes",
+        joinColumn: {name: "postagem_id", referencedColumnName: "id"},
+        inverseJoinColumn: {name: "usuario_id", referencedColumnName: "id"}
+    })
+    curtidoPor: User[];
+
     @Column({ nullable: true })
     slug: string; //armazena slug
     @OneToMany(() => Comentario, (comentario) => comentario.postagem)
     comentarios: Comentario[]; // Relacionamento com os Comentarios
+
 }

@@ -5,6 +5,7 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { PostagemDTO } from "./DTO/postagens.dto";
 import { Public } from "src/auth/constants";
 import { User } from "src/users/users.entity";
+import { PostagensService } from "./postagens.service";
 import slugify from "slugify";
 import { Like } from "typeorm";
 
@@ -15,6 +16,7 @@ export class PostagensController {
         private postagemRepository: Repository<Postagem>,
         @InjectRepository(User)
         private userRepository: Repository<User>,
+        private postagensService: PostagensService,
     ) { }
 
     @Public()
@@ -105,5 +107,14 @@ export class PostagensController {
             throw new NotFoundException("Postagem não encontrada");
         }
         await this.postagemRepository.delete(id);
+    }
+
+    @Post(":postId/like/:userId")
+    async toggleLike(
+        @Param("postId") postId: number,
+        @Param("userId") userId: number,
+    ) {
+        const result = await this.postagensService.toggleLike(postId, userId);
+        return result;
     }
 }
