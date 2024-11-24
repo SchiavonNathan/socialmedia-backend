@@ -31,4 +31,7 @@ export class Postagem {
         onUpdate: "CURRENT_TIMESTAMP"
     })
     data_atualizacao: Date;
+
+    @Column({ nullable: true })
+    slug: string; //armazena slug
 }
