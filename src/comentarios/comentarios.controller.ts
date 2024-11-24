@@ -23,19 +23,21 @@ export class ComentariosController {
     getComentariosList(){
         return this.comentarioRepository.find({ relations: ["usuario", "postagem"] });
     }
-    @Public()
-    @Get(":id")
-    async getComentarioById(@Param("id") id: number) {
-        const comentario = await this.postagemRepository.findOne({
-            where: { id },
-            relations: ["usuario", "comentario"]
-        });
 
-        if (!comentario) {
-            throw new NotFoundException("Comentário não encontrado");
+    @Public()
+    @Get(":postagem_id")
+    async getComentarioById(@Param("postagem_id") postagem_id: number) {
+    
+        if (isNaN(postagem_id)) {
+            throw new NotFoundException("O ID da postagem deve ser um número válido.");
         }
 
-        return comentario;
+        const comentarios = await this.comentarioRepository.find({
+            where: { postagem: { id: postagem_id } },
+            relations: ["usuario", "postagem"],
+        });
+    
+        return comentarios;
     }
 
     @Public()
