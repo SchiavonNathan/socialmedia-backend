@@ -6,6 +6,8 @@ import { PostagemDTO } from "./DTO/postagens.dto";
 import { Public } from "src/auth/constants";
 import { User } from "src/users/users.entity";
 import { PostagensService } from "./postagens.service";
+import slugify from "slugify";
+import { Like } from "typeorm";
 
 @Controller("postagens")
 export class PostagensController {
@@ -36,11 +38,27 @@ export class PostagensController {
     @Public()
     @Get("/search/:titulo")
     async getPostagemByTitulo(@Param("titulo") titulo: string) {
-        const postagem = await this.postagemRepository.find({ where:{ titulo: titulo },  relations: ["usuario"]});
+        const postagem = await this.postagemRepository.find({ where: { titulo: Like(`%${titulo}%`) },  relations: ["usuario"]});
         if (!postagem) {
             throw new NotFoundException("Postagem não encontrada");
         }
         return postagem;
+    }
+
+    //rota para compartilhamento
+    @Public()
+    @Get("/share/:id")
+    async getPostagemForShare(@Param("id") id:number){
+        const postagem = await this.postagemRepository.findOne({where: {id}, relations: ["usuario"] });
+        if (!postagem){
+            throw new NotFoundException("Postagem não encontrada");
+        }
+
+        //gerar slug com base no título
+        const slug = slugify(postagem.titulo, { lower: true});
+        const shareUrl = `https://blog.com/postagens/${id}/${slug}`;
+
+        return { shareUrl };
     }
 
     @Public()
@@ -55,6 +73,7 @@ export class PostagensController {
         const postagem = this.postagemRepository.create({
             ...postagemDto,
             usuario,
+            slug: slugify(postagemDto.titulo, { lower: true }),
         });
 
         return this.postagemRepository.save(postagem);
