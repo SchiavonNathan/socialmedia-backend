@@ -33,7 +33,8 @@ export class Postagem {
     })
     data_atualizacao: Date;
 
-
+    @Column({ nullable: true })
+    slug: string; //armazena slug
     @OneToMany(() => Comentario, (comentario) => comentario.postagem)
     comentarios: Comentario[]; // Relacionamento com os Comentarios
 }
