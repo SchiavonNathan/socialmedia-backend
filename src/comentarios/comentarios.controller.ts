@@ -44,7 +44,7 @@ export class ComentariosController {
     @Post()
     async createComentario(@Body() comentarioDTO: ComentarioDTO){
         const usuario = await this.userRepository.findOneBy({ id: comentarioDTO.usuarioId });
-        const postagem = await this.userRepository.findOneBy({ id: comentarioDTO.postagemId });
+        const postagem = await this.postagemRepository.findOneBy({ id: comentarioDTO.postagemId });
         
         if (!usuario) {
             throw new NotFoundException("Usuário não encontrado");
