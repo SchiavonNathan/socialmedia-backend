@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToOne, OneToMany, JoinColumn, ManyToMany, JoinTable } from "typeorm";
 import { User } from "src/users/users.entity";
+import { Like } from 'src/likes/likes.entity';
 import { Comentario } from "src/comentarios/comentarios.entity";
 
 @Entity("Postagens") 
@@ -33,17 +34,11 @@ export class Postagem {
     })
     data_atualizacao: Date;
 
+    @Column({ default: 0 })  // Campo para o contador de curtidas
+    likesCount: number;
 
-    @Column({type: "int", default: 0})
-    likes: number;
-
-    @ManyToMany(() => User, {cascade: true})
-    @JoinTable({
-        name: "postagem_likes",
-        joinColumn: {name: "postagem_id", referencedColumnName: "id"},
-        inverseJoinColumn: {name: "usuario_id", referencedColumnName: "id"}
-    })
-    curtidoPor: User[];
+    @OneToMany(() => Like, like => like.postagem)
+    likes: Like[];  
 
     @Column({ nullable: true })
     slug: string; //armazena slug

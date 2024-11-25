@@ -10,6 +10,8 @@ import { Postagem } from './postagens/postagens.entity';
 import { PostagensModule } from './postagens/postagens.module';
 import { ComentariosModule } from './comentarios/comentarios.module';
 import { Comentario } from "src/comentarios/comentarios.entity";
+import { Like } from 'src/likes/likes.entity';
+import { LikesModule } from './likes/likes.module';
 
 @Module({
   imports: [
@@ -23,13 +25,14 @@ import { Comentario } from "src/comentarios/comentarios.entity";
       username: "unicesumar",
       password: "unicesumar",
       database: "blog",
-      entities: [User, Postagem, Comentario],
+      entities: [User, Postagem, Comentario, Like],
       synchronize: true
     }),
     UsersModule,
     PostagensModule,
     AuthModule,
-    ComentariosModule
+    ComentariosModule,
+    LikesModule
   ],
   controllers: [AppController],
   providers: [AppService],
