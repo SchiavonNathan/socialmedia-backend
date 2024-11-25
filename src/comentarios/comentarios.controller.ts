@@ -62,4 +62,9 @@ export class ComentariosController {
         return this.comentarioRepository.save(comentario);
     }
 
+    @Public()
+    @Delete(":id")
+    async deletarComentario(@Param("id") id: number){
+        return await this.comentarioRepository.delete({id: id})
+    }
 }
