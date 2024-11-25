@@ -109,12 +109,16 @@ export class PostagensController {
         await this.postagemRepository.delete(id);
     }
 
-    @Post(":postId/like/:userId")
-    async toggleLike(
-        @Param("postId") postId: number,
-        @Param("userId") userId: number,
-    ) {
-        const result = await this.postagensService.toggleLike(postId, userId);
-        return result;
-    }
+    // @Public()
+    // @Post(":postId/like/:userId")
+    // async toggleLike(
+    //     @Param("postId") postId: number,
+    //     @Param("userId") userId: number,
+    // ) {
+    //     const result = await this.postagensService.toggleLike(postId, userId);
+    //     return result;
+    // }
+
+    
+
 }

@@ -4,10 +4,11 @@ import { Postagem } from './postagens.entity';
 import { PostagensController } from './postagens.controller';
 import { PostagensService } from './postagens.service';
 import { User } from 'src/users/users.entity';
+import { Like } from 'src/likes/likes.entity';
 import { Comentario } from 'src/comentarios/comentarios.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Postagem, User, Comentario])],
+    imports: [TypeOrmModule.forFeature([Postagem, User, Comentario, Like])],
     controllers: [PostagensController],
     providers: [PostagensService],
     exports: [PostagensService]

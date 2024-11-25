@@ -1,6 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, ManyToMany } from "typeorm";
 import { Postagem } from "src/postagens/postagens.entity";
 import { Comentario } from "src/comentarios/comentarios.entity";
+import { Like } from 'src/likes/likes.entity';
 
 @Entity("Usuarios")
 export class User {
@@ -32,8 +33,8 @@ export class User {
     postagens: Postagem[];
 
 
-    @ManyToMany(() => Postagem, (postagem) => postagem.curtidoPor)
-    curtindoPostagens: Postagem[];
+    @OneToMany(() => Like, like => like.postagem)
+    likes: Like[];  
 
     @OneToMany(() => Comentario, (comentario) => comentario.usuario)
     comentarios: Comentario[]; 
